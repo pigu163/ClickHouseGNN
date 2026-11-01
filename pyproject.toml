@@ -1,0 +1,19 @@
+[project]
+name = "clickhousegnn"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "clickhouse-connect>=1.11.0",
+    "mlflow==3.5.1",
+    "numpy>=2.5.4",
+    "polars>=2.1.0",
+    "pyarrow>=21.0.0",
+    "scikit-learn>=1.9.1",
+    "torch>=2.15.0",
+    "torch-geometric>=2.8.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
