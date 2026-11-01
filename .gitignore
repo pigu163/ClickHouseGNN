@@ -1,0 +1,26 @@
+AGENTS.md
+
+# CodeGraph's local index and state
+.codegraph/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Local configuration and operating system files
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Local datasets, database state, and experiment artifacts
+data/
+mlruns/
+mlartifacts/
