@@ -4,7 +4,24 @@ An end-to-end graph machine learning project for financial transaction networks 
 
 ## Status
 
-This repository is at the planning stage. The infrastructure, ingestion, feature queries, models, and evaluation pipeline have not yet been implemented. Setup and usage instructions will be added as those components become available.
+ClickHouse and MLflow are available through Docker Compose. Ingestion, feature queries, models, and evaluation have not yet been implemented.
+
+## Start the services
+
+Install Docker Desktop (or Docker Engine with Compose), then run:
+
+```sh
+cp .env.example .env
+docker compose up -d
+```
+
+The copy command is only needed once; running it again overwrites `.env`. Set a local password in `.env` before starting. This file is ignored by Git; `.env.example` is the shared template.
+
+ClickHouse listens on `localhost:8123` (HTTP) and `localhost:9000` (native). Open its SQL interface at [http://localhost:8123/play](http://localhost:8123/play) and use the credentials from `.env`. Try `SELECT 1;` or `SHOW TABLES FROM transactions;`.
+
+MLflow is available at [http://localhost:5000](http://localhost:5000); set `MLFLOW_TRACKING_URI=http://localhost:5000` in training clients. Both services bind to localhost. Data is stored in `data/clickhouse` and `data/mlflow` under the project root; MLflow uses SQLite for tracking metadata and stores artifacts in the same directory. The `data/` directory is ignored by Git.
+
+To stop the services without deleting their data, run `docker compose down`. Changing ClickHouse initialization credentials in `.env` after its data directory has been initialized does not update the existing user.
 
 ## Planned workflow
 

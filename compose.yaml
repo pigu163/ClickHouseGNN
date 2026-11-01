@@ -1,0 +1,25 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:25.8
+    ports:
+      - "127.0.0.1:8123:8123"
+      - "127.0.0.1:9000:9000"
+    environment:
+      CLICKHOUSE_DB: ${CLICKHOUSE_DB:-transactions}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-app}
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:?Set CLICKHOUSE_PASSWORD in .env}
+    volumes:
+      - ./data/clickhouse:/var/lib/clickhouse
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v3.5.1
+    ports:
+      - "127.0.0.1:5000:5000"
+    entrypoint: ["mlflow"]
+    command:
+      - server
+      - --host=0.0.0.0
+      - --backend-store-uri=sqlite:////mlflow/mlflow.db
+      - --artifacts-destination=/mlflow/artifacts
+    volumes:
+      - ./data/mlflow:/mlflow
