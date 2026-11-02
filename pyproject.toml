@@ -1,19 +1,33 @@
 [project]
 name = "clickhousegnn"
 version = "0.1.0"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 dependencies = [
     "clickhouse-connect>=1.11.0",
     "mlflow==3.5.1",
     "numpy>=2.5.4",
     "polars>=2.1.0",
+    "pyg-lib==0.9.0+pt212",
     "pyarrow>=21.0.0",
     "scikit-learn>=1.9.1",
-    "torch>=2.15.0",
+    "torch==2.12.0",
     "torch-geometric>=2.8.1",
+    "torch-scatter==2.1.2",
+    "torch-sparse==0.6.18",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=9.2.0",
 ]
+
+[tool.uv.sources]
+pyg-lib = { index = "pyg-wheels" }
+torch-scatter = { index = "pyg-wheels" }
+torch-sparse = { index = "pyg-wheels" }
+
+[[tool.uv.index]]
+name = "pyg-wheels"
+url = "https://data.pyg.org/whl/torch-2.12.0+cpu.html"
+format = "flat"
+explicit = true

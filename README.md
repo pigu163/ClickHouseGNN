@@ -25,4 +25,14 @@ Run `docker compose down` to stop the services without deleting data. Changing `
 
 ## Planned workflow
 
-Ingest transactions, compute historical graph features without future-data leakage, train GraphSAGE and a non-graph baseline, track experiments in MLflow, and evaluate precision, recall, F1, PR-AUC, and feature computation performance.
+![Planned ClickHouseGNN pipeline](diagram/pipeline.svg)
+
+[Open the HTML diagram](diagram/pipeline.html) in a browser. The diagram describes the planned workflow:
+
+1. Ingest transaction and account data into ClickHouse MergeTree tables.
+2. Compute historical node and edge features with SQL, using only transactions before the prediction cutoff.
+3. Construct a PyTorch Geometric graph and train GraphSAGE alongside a non-graph baseline.
+4. Compare precision, recall, F1, and PR-AUC; benchmark ClickHouse feature queries.
+5. Record dataset versions, feature settings, parameters, metrics, and model artifacts in MLflow.
+
+The services are configured; ingestion, feature engineering, model training, and evaluation are not yet implemented.

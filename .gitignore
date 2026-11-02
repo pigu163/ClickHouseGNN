@@ -25,6 +25,8 @@ dist/
 .DS_Store
 
 # Local datasets, database state, and experiment artifacts
+dataset/
+paper/
 data/
 mlruns/
 mlartifacts/
