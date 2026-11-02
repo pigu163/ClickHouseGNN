@@ -23,6 +23,16 @@ Both services bind to localhost. Their data is stored in `data/clickhouse` and `
 
 Run `docker compose down` to stop the services without deleting data. Changing `.env` after ClickHouse initializes does not update its existing user. Run Python with `uv run python` and tests with `uv run pytest`.
 
+## Load the datasets
+
+Place `HI-Small` and `LI-Small` under `dataset/`, then run:
+
+```sh
+uv run python scripts/ingest_datasets.py
+```
+
+The script creates two transaction tables and two account tables in ClickHouse, then inserts the CSV rows in batches. It reads credentials from `.env` or, if absent, `.env.example`. Each run clears those four dataset tables before importing, so it can be rerun after an interrupted load. Transaction account columns are stored separately as `from_account` and `to_account`. The table definitions are in `sql/schema.sql`.
+
 ## Planned workflow
 
 ![Planned ClickHouseGNN pipeline](diagram/pipeline.svg)
